@@ -1,11 +1,14 @@
 name: Kernel Build
 
-on: pull_request
+on: 
+  pull_request:
+    branches: [ master ]
+  push:
 
 jobs:
   build:
     name: Build
-    runs-on: [self-hosted]
+    runs-on: [ubuntu-latest]
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') }}
     steps:
     - name: Clean Workspace
@@ -15,6 +18,8 @@ jobs:
       with:
           submodules: recursive
           path: pve-edge-kernel
+    - name: Install kernel build deps
+      run: sudo apt-get update && sudo apt-get install devscripts debhelper equivs 
     - name: Clean Repository
       run: git -C pve-edge-kernel submodule foreach git clean -ffdx
     - name: Build Kernel
