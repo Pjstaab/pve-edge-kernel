@@ -19,7 +19,7 @@ jobs:
           submodules: recursive
           path: pve-edge-kernel
     - name: Install kernel build deps
-      run: sudo apt-get update && sudo apt-get install devscripts debhelper equivs 
+      run: sudo apt-get update && sudo apt-get install devscripts debhelper equivs asciidoc dwarves libdw-dev libelf-dev libiberty-dev libnuma-dev libslang2-dev quilt xmlto
     - name: Clean Repository
       run: git -C pve-edge-kernel submodule foreach git clean -ffdx
     - name: Build Kernel
